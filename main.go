@@ -1,7 +1,13 @@
+/*
+Copyright © 2022 CS-1902
+Azat Nurzhanuly
+Bekdaulet Shapigullin
+Aslan Omirzak
+*/
 package main
 
-import "fmt"
+import "ABA/EME/cmd"
 
 func main() {
-	fmt.Println("Hello, World!")
+	cmd.Execute()
 }
