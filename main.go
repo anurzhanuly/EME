@@ -1,4 +1,4 @@
-package EME
+package main
 
 import "fmt"
 
