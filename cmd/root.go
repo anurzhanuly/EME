@@ -13,16 +13,12 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "EME",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "Allows user to identify encryption method used on a malware",
+	Long: `This application - EME, is created to identify encryption methods
+used to cipher a malware.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+EME stands for executable method encryption
+EME has several options to run.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
