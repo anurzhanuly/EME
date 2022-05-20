@@ -1,9 +1,6 @@
 /*
-Package cmd
-Copyright © 2022 CS-1902
-Azat Nurzhanuly
-Bekdaulet Shapigullin
-Aslan Omirzak
+Copyright © 2022 Azat Nurzhanuly, Bekdaulet Shapigullin, Aslan Omirzak
+
 */
 package cmd
 
