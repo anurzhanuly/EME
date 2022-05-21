@@ -16,7 +16,7 @@ var versionCmd = &cobra.Command{
 	Short: "Get a version of the tool",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("version called")
+		fmt.Println("Current version is alpha 1.0")
 	},
 }
 
