@@ -80,3 +80,7 @@ PowerShell:
 		}
 	},
 }
+
+func init() {
+	rootCmd.AddCommand(completionCmd)
+}

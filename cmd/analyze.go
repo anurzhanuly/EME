@@ -16,11 +16,14 @@ var analyzeCmd = &cobra.Command{
 	Long: `Will iterate over every possible detection method
 to find the one that is suitable. It will start with simple ciphers
 like XOR or ROT13 and then continue with DES, AES - like ones.`,
+
 	Run: func(cmd *cobra.Command, args []string) {
 		xor, _ := cmd.Flags().GetBool("xor")
+		filePath, _ := cmd.Flags().GetString("path")
 
 		if xor {
-			mXOR.Detect()
+			mXOR.Detect(filePath)
+			return
 		}
 	},
 }
