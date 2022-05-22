@@ -14,6 +14,10 @@ type Detector struct {
 func (d *Detector) Detect() bool {
 	header := headerUtil.GetFileHeader(d.Filepath)
 
+	return d.isXORed(header)
+}
+
+func (d Detector) isXORed(header [2]byte) bool {
 	for i := byte(0); i < methods.AsciiLimit; i++ {
 		result := make([]byte, 2)
 
