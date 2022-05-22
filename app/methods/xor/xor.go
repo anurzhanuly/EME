@@ -2,21 +2,27 @@ package xor
 
 import (
 	"ABA/EME/app/methods"
+	"fmt"
 	"io"
 	"os"
 )
 
 func Detect(filepath string) bool {
-	header := getFileHeader(filepath)
+	header := GetFileHeader(filepath)
+
+	fmt.Println("Getting initial header: ", header)
 
 	for i := byte(0); i < methods.AsciiLimit; i++ {
-		var result [2]byte
+		result := make([]byte, 2)
 
-		for _, char := range header {
-			result[0] = i ^ char
+		for index, char := range header {
+			result[index] = i ^ char
 		}
 
-		if result[0] == methods.AsciiM && result[1] == methods.AsciiZ {
+		if result[methods.PositionOfM] == methods.AsciiM && result[methods.PositionOfZ] == methods.AsciiZ {
+			fmt.Printf("The key is: %s", string(i))
+			fmt.Println()
+
 			return true
 		}
 	}
@@ -24,7 +30,7 @@ func Detect(filepath string) bool {
 	return false
 }
 
-func getFileHeader(filepath string) [2]byte {
+func GetFileHeader(filepath string) [2]byte {
 	r, _ := os.Open(filepath)
 	defer func(r *os.File) {
 		err := r.Close()
