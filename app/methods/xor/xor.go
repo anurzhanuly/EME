@@ -2,15 +2,18 @@ package xor
 
 import (
 	"ABA/EME/app/methods"
-	"fmt"
 	"io"
 	"os"
 )
 
-func Detect(filepath string) bool {
-	header := GetFileHeader(filepath)
+type Detector struct {
+	Result    bool
+	Filepath  string
+	ResultKey string
+}
 
-	fmt.Println("Getting initial header: ", header)
+func (d *Detector) Detect() bool {
+	header := GetFileHeader(d.Filepath)
 
 	for i := byte(0); i < methods.AsciiLimit; i++ {
 		result := make([]byte, 2)
@@ -20,14 +23,15 @@ func Detect(filepath string) bool {
 		}
 
 		if result[methods.PositionOfM] == methods.AsciiM && result[methods.PositionOfZ] == methods.AsciiZ {
-			fmt.Printf("The key is: %s", string(i))
-			fmt.Println()
-
 			return true
 		}
 	}
 
 	return false
+}
+
+func (d Detector) Present() {
+
 }
 
 func GetFileHeader(filepath string) [2]byte {

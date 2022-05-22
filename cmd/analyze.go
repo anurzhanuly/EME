@@ -5,6 +5,8 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"ABA/EME/app/methods"
+	mROT "ABA/EME/app/methods/rot13"
 	mXOR "ABA/EME/app/methods/xor"
 	"github.com/spf13/cobra"
 )
@@ -18,12 +20,15 @@ to find the one that is suitable. It will start with simple ciphers
 like XOR or ROT13 and then continue with DES, AES - like ones.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		xor, _ := cmd.Flags().GetBool("xor")
+		//xor, _ := cmd.Flags().GetBool("xor")
 		filePath, _ := cmd.Flags().GetString("path")
 
-		if xor {
-			mXOR.Detect(filePath)
-			return
+		detectors := initDetectors(filePath)
+
+		for _, detector := range detectors {
+			if detector.Detect() {
+				detector.Present()
+			}
 		}
 	},
 }
@@ -38,4 +43,13 @@ func init() {
 	}
 	// Here you will define your flags and configuration settings.
 	analyzeCmd.Flags().BoolP("xor", "x", false, "uses only XOR detection")
+}
+
+func initDetectors(filepath string) []methods.Detector {
+	detectors := []methods.Detector{
+		&mXOR.Detector{Filepath: filepath},
+		&mROT.Detector{Filepath: filepath},
+	}
+
+	return detectors
 }

@@ -8,6 +8,7 @@ const AsciiM = 77
 const AsciiZ = 90
 const AsciiLimit = 255
 
-type detector interface {
-	Detect(filepath string) bool
+type Detector interface {
+	Detect() bool
+	Present()
 }

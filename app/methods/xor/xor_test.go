@@ -9,6 +9,9 @@ func TestDetect(t *testing.T) {
 	filepathOrigin := "/home/nurzhanuly/Documents/Personal/mona/AITU/diploma/petest/crackme.exe"
 	newFilepath := "/home/nurzhanuly/Documents/Personal/mona/AITU/diploma/petest/xor/crackme.exe"
 	key := byte('Z')
+	detector := Detector{
+		Filepath: filepathOrigin,
+	}
 
 	header := GetFileHeader(filepathOrigin)
 	t.Log("Original header is:", header)
@@ -34,7 +37,7 @@ func TestDetect(t *testing.T) {
 		return
 	}
 
-	if !Detect(newFilepath) {
+	if !detector.Detect() {
 		t.Error("XOR type is not found")
 	}
 }
