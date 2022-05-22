@@ -2,8 +2,7 @@ package xor
 
 import (
 	"ABA/EME/app/methods"
-	"io"
-	"os"
+	headerUtil "ABA/EME/app/methods/utils/header"
 )
 
 type Detector struct {
@@ -13,7 +12,7 @@ type Detector struct {
 }
 
 func (d *Detector) Detect() bool {
-	header := GetFileHeader(d.Filepath)
+	header := headerUtil.GetFileHeader(d.Filepath)
 
 	for i := byte(0); i < methods.AsciiLimit; i++ {
 		result := make([]byte, 2)
@@ -32,19 +31,4 @@ func (d *Detector) Detect() bool {
 
 func (d Detector) Present() {
 
-}
-
-func GetFileHeader(filepath string) [2]byte {
-	r, _ := os.Open(filepath)
-	defer func(r *os.File) {
-		err := r.Close()
-		if err != nil {
-			return
-		}
-	}(r)
-
-	var header [2]byte
-	_, _ = io.ReadFull(r, header[:])
-
-	return header
 }
