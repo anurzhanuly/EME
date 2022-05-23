@@ -28,6 +28,8 @@ like XOR or ROT13 and then continue with DES, AES - like ones.`,
 		for _, detector := range detectors {
 			if detector.Detect() {
 				detector.Present()
+
+				return
 			}
 		}
 	},
