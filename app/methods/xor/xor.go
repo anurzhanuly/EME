@@ -17,7 +17,7 @@ func (d *Detector) Detect() bool {
 	return d.isXORed(header)
 }
 
-func (d Detector) isXORed(header [2]byte) bool {
+func (d *Detector) isXORed(header [2]byte) bool {
 	for i := byte(0); i < methods.AsciiLimit; i++ {
 		result := make([]byte, 2)
 

@@ -10,10 +10,10 @@ type Detector struct {
 func (d *Detector) Detect() bool {
 	header := headerUtil.GetFileHeader(d.Filepath)
 
-	return isROTed(header)
+	return d.isROTed(header)
 }
 
-func isROTed(header [2]byte) bool {
+func (d *Detector) isROTed(header [2]byte) bool {
 
 	return false
 }
