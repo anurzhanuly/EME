@@ -18,6 +18,24 @@ func (d *Detector) isROTed(header [2]byte) bool {
 	return false
 }
 
+func rot13(r rune) rune {
+	if r >= 'a' && r <= 'z' {
+		if r >= 'm' {
+			return r - 13
+		} else {
+			return r + 13
+		}
+	} else if r >= 'A' && r <= 'Z' {
+		if r >= 'M' {
+			return r - 13
+		} else {
+			return r + 13
+		}
+	}
+
+	return r
+}
+
 func (d Detector) Present() {
 
 }
