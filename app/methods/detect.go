@@ -10,5 +10,5 @@ const AsciiLimit = 255
 
 type Detector interface {
 	Detect() bool
-	Present()
+	Present() // Beautiful results of operation
 }

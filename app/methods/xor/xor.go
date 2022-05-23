@@ -3,6 +3,7 @@ package xor
 import (
 	"ABA/EME/app/methods"
 	headerUtil "ABA/EME/app/methods/utils/header"
+	"fmt"
 )
 
 type Detector struct {
@@ -13,7 +14,7 @@ type Detector struct {
 
 func (d *Detector) Detect() bool {
 	header := headerUtil.GetFileHeader(d.Filepath)
-
+	fmt.Println("Checking flags for XOR")
 	return d.isXORed(header)
 }
 
