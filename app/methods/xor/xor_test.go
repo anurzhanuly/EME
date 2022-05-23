@@ -1,6 +1,7 @@
 package xor
 
 import (
+	headerUtil "ABA/EME/app/methods/utils/header"
 	"os"
 	"testing"
 )
@@ -13,7 +14,7 @@ func TestDetect(t *testing.T) {
 		Filepath: filepathOrigin,
 	}
 
-	header := GetFileHeader(filepathOrigin)
+	header := headerUtil.GetFileHeader(filepathOrigin)
 	t.Log("Original header is:", header)
 
 	for index, char := range header {
