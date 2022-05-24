@@ -8,6 +8,7 @@ import (
 	"ABA/EME/app/methods"
 	mROT "ABA/EME/app/methods/rot13"
 	mXOR "ABA/EME/app/methods/xor"
+	"fmt"
 	"github.com/spf13/cobra"
 )
 
@@ -26,12 +27,14 @@ like XOR or ROT13 and then continue with DES, AES - like ones.`,
 		detectors := initDetectors(filePath)
 
 		for _, detector := range detectors {
-			if detector.Detect() {
+			if result, err := detector.Detect(); err == nil && result {
 				detector.Present()
 
 				return
 			}
 		}
+
+		fmt.Println("Encryption method is not detected")
 	},
 }
 
