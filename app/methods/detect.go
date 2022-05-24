@@ -1,14 +1,18 @@
 package methods
 
-const PositionOfM = 0
-const PositionOfZ = 1
-const HexM = 0x4d
-const HexZ = 0x5a
-const AsciiM = 77
-const AsciiZ = 90
-const AsciiLimit = 255
+const (
+	PositionOfM              = 0
+	PositionOfZ              = 1
+	HexM                     = 0x4d
+	HexZ                     = 0x5a
+	AsciiM                   = 77
+	AsciiZ                   = 90
+	AsciiLimit               = 255
+	KeyWordForIdentification = "This is a program"
+	TrimLengthForExeHeader   = 90
+)
 
 type Detector interface {
-	Detect() bool
+	Detect() (bool, error)
 	Present() // Beautiful results of operation
 }
