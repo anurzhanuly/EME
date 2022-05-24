@@ -10,6 +10,9 @@ const (
 	AsciiLimit               = 255
 	KeyWordForIdentification = "This program"
 	TrimLengthForExeHeader   = 90
+	AsciiUppercase           = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	AsciiLowercase           = "abcdefghijklmnopqrstuvwxyz"
+	AsciiLettersLength       = len(AsciiLowercase)
 )
 
 type Detector interface {

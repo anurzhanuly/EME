@@ -1,43 +1,52 @@
 package rot13
 
 import (
+	"ABA/EME/app/methods"
 	headerUtil "ABA/EME/app/methods/utils/file"
+	"bytes"
 	"fmt"
 )
 
 type Detector struct {
-	Filepath string
-	Result   bool
+	Filepath  string
+	Result    bool
+	ResultKey int
 }
 
-func (d *Detector) Detect() bool {
-	header := headerUtil.GetFileHeader(d.Filepath)
+func (d *Detector) Detect() (bool, error) {
+	fileContent, err := headerUtil.GetFileWithoutHeader(d.Filepath)
+	if err != nil {
+		return false, err
+	}
 	fmt.Println("Checking flags for ROT13")
 
-	return d.isROTed(header)
+	return d.isROTed(fileContent), err
 }
 
-func (d *Detector) isROTed(header [2]byte) bool {
+func (d *Detector) isROTed(fileContent []byte) bool {
+	result := make([]byte, len(fileContent))
+
+	for i := 1; i < methods.AsciiLettersLength; i++ {
+		for index, val := range fileContent {
+			result[index] = Rot13(val, i)
+		}
+	}
 
 	return false
 }
 
-func rot13(r rune) rune {
-	if r >= 'a' && r <= 'z' {
-		if r >= 'm' {
-			return r - 13
-		} else {
-			return r + 13
-		}
-	} else if r >= 'A' && r <= 'Z' {
-		if r >= 'M' {
-			return r - 13
-		} else {
-			return r + 13
-		}
+func Rot13(b byte, shift int) byte {
+	pos := bytes.IndexByte([]byte(methods.AsciiUppercase), b)
+	if pos != -1 {
+		return methods.AsciiUppercase[(pos+shift)%methods.AsciiLettersLength]
 	}
 
-	return r
+	pos = bytes.IndexByte([]byte(methods.AsciiLowercase), b)
+	if pos != -1 {
+		return methods.AsciiLowercase[(pos+shift)%methods.AsciiLettersLength]
+	}
+
+	return b
 }
 
 func (d Detector) Present() {
