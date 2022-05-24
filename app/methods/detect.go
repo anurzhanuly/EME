@@ -16,6 +16,6 @@ const (
 )
 
 type Detector interface {
-	Detect() (bool, error)
-	Present() // Beautiful results of operation
+	Detect() (bool, error) // Basic algorithm for finding the encryption type
+	Present()              // Beautiful results of operation
 }
