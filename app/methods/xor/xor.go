@@ -2,7 +2,7 @@ package xor
 
 import (
 	"ABA/EME/app/methods"
-	headerUtil "ABA/EME/app/methods/utils/header"
+	headerUtil "ABA/EME/app/methods/utils/file"
 	"fmt"
 	"strings"
 )

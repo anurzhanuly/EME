@@ -1,7 +1,7 @@
 package xor
 
 import (
-	headerUtil "ABA/EME/app/methods/utils/header"
+	headerUtil "ABA/EME/app/methods/utils/file"
 	"os"
 	"testing"
 )
@@ -14,8 +14,8 @@ func TestDetect(t *testing.T) {
 		Filepath: filepathOrigin,
 	}
 
-	header := headerUtil.GetFileHeader(filepathOrigin)
-	t.Log("Original header is:", header)
+	header, _ := headerUtil.GetFileHeader(filepathOrigin)
+	t.Log("Original file is:", header)
 
 	for index, char := range header {
 		header[index] = char ^ key
@@ -25,7 +25,7 @@ func TestDetect(t *testing.T) {
 	newHeader[0] = header[0]
 	newHeader[1] = header[1]
 
-	t.Log("Modified header is:", header)
+	t.Log("Modified file is:", header)
 
 	newFile, _ := os.Create(newFilepath)
 	_, err := newFile.Write(newHeader)
@@ -38,7 +38,7 @@ func TestDetect(t *testing.T) {
 		return
 	}
 
-	if !detector.Detect() {
+	if result, err := detector.Detect(); err != nil || !result {
 		t.Error("XOR type is not found")
 	}
 }
