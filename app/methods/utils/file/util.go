@@ -1,6 +1,7 @@
 package file
 
 import (
+	"ABA/EME/app/methods"
 	"io/ioutil"
 	"os"
 )
@@ -24,7 +25,7 @@ func GetFileWithoutHeader(filepath string) ([]byte, error) {
 		return result, err
 	}
 
-	return result[2:], err
+	return result[methods.TrimLengthForExeHeader:], err
 }
 
 func GetFileContent(filepath string) ([]byte, error) {

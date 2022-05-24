@@ -3,8 +3,8 @@ package xor
 import (
 	"ABA/EME/app/methods"
 	headerUtil "ABA/EME/app/methods/utils/file"
+	"bytes"
 	"fmt"
-	"strings"
 )
 
 type Detector struct {
@@ -22,6 +22,7 @@ func (d *Detector) Detect() (bool, error) {
 		fmt.Println("ERROR: Cannot read from file")
 		return false, err
 	}
+
 	return d.isXORed(fileContents), err
 }
 
@@ -29,7 +30,7 @@ func (d *Detector) isXORed(fileContents []byte) bool {
 	fmt.Print("Starting XOR brute-forcing with key: ")
 
 	for i := byte(0); i < methods.AsciiLimit; i++ {
-		fmt.Printf("%s, ", string(i))
+		fmt.Printf("%x, ", string(i))
 
 		result := make([]byte, len(fileContents))
 
@@ -37,9 +38,7 @@ func (d *Detector) isXORed(fileContents []byte) bool {
 			result[index] = i ^ char
 		}
 
-		strResult := string(result)
-
-		if strings.Contains(strResult, methods.KeyWordForIdentification) {
+		if bytes.Index(result, []byte(methods.KeyWordForIdentification)) != -1 {
 			d.ResultKey = string(i)
 			fmt.Println()
 

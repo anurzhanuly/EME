@@ -12,7 +12,7 @@ func TestDetect(t *testing.T) {
 	newFilepath := "/home/nurzhanuly/Documents/Personal/mona/AITU/diploma/petest/xor/crackme.exe"
 	key := byte('Z')
 	detector := Detector{
-		Filepath: filepathOrigin,
+		Filepath: newFilepath,
 	}
 
 	fileContent, err := headerUtil.GetFileContent(filepathOrigin)
@@ -26,8 +26,14 @@ func TestDetect(t *testing.T) {
 		fileContent[index] = char ^ key
 	}
 
-	newHeader := make([]byte, methods.TrimLengthForExeHeader)
+	t.Log("Original file XORed header is:", fileContent[:10])
+
+	newHeader := fileContent[:methods.TrimLengthForExeHeader]
+	t.Log("Fake header is:", fileContent[:10])
 	newHeader = append(newHeader, fileContent...)
+
+	t.Log("Original file XORed header:", fileContent[:2])
+	t.Log("Fake header:", newHeader[:2])
 
 	newFile, _ := os.Create(newFilepath)
 	_, err = newFile.Write(newHeader)
@@ -43,4 +49,6 @@ func TestDetect(t *testing.T) {
 	if result, err := detector.Detect(); err != nil || !result {
 		t.Error("XOR type is not found")
 	}
+
+	detector.Present()
 }

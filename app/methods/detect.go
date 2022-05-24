@@ -8,7 +8,7 @@ const (
 	AsciiM                   = 77
 	AsciiZ                   = 90
 	AsciiLimit               = 255
-	KeyWordForIdentification = "This is a program"
+	KeyWordForIdentification = "This program"
 	TrimLengthForExeHeader   = 90
 )
 
