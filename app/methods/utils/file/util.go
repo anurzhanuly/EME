@@ -1,7 +1,7 @@
 package file
 
 import (
-	"ABA/EME/app/methods"
+	"github.com/anurzhanuly/EME/app/methods"
 	"io/ioutil"
 	"os"
 )

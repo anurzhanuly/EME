@@ -5,10 +5,10 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"ABA/EME/app/methods"
-	mROT "ABA/EME/app/methods/rot13"
-	mXOR "ABA/EME/app/methods/xor"
 	"fmt"
+	"github.com/anurzhanuly/EME/app/methods"
+	mROT "github.com/anurzhanuly/EME/app/methods/rot13"
+	mXOR "github.com/anurzhanuly/EME/app/methods/xor"
 	"github.com/spf13/cobra"
 )
 

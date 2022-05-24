@@ -1,4 +1,4 @@
-module ABA/EME
+module github.com/anurzhanuly/EME
 
 go 1.18
 

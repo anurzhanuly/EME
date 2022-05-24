@@ -1,10 +1,10 @@
 package xor
 
 import (
-	"ABA/EME/app/methods"
-	headerUtil "ABA/EME/app/methods/utils/file"
 	"bytes"
 	"fmt"
+	"github.com/anurzhanuly/EME/app/methods"
+	headerUtil "github.com/anurzhanuly/EME/app/methods/utils/file"
 )
 
 type Detector struct {
