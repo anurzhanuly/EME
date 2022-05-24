@@ -30,6 +30,12 @@ func (d *Detector) isROTed(fileContent []byte) bool {
 		for index, val := range fileContent {
 			result[index] = Rot13(val, i)
 		}
+
+		if bytes.Contains(result, []byte(methods.KeyWordForIdentification)) {
+			d.ResultKey = i
+
+			return true
+		}
 	}
 
 	return false
@@ -50,5 +56,7 @@ func Rot13(b byte, shift int) byte {
 }
 
 func (d Detector) Present() {
-
+	fmt.Println("ROT13 - is the encryption type")
+	fmt.Printf("%d - is the used key for ROT13", d.ResultKey)
+	fmt.Println()
 }
