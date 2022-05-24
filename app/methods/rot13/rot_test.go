@@ -15,6 +15,6 @@ func TestRot13(t *testing.T) {
 	}
 
 	if bytes.Contains(result, output) {
-		t.Log("KRASAVA! ROT PASHET")
+		t.Log("ROT13 algorithm is working!")
 	}
 }
