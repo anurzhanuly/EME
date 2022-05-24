@@ -18,7 +18,7 @@ func (d *Detector) Detect() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	fmt.Println("Checking flags for ROT13")
+	fmt.Println("Checking for ROT13 cipher")
 
 	return d.isROTed(fileContent), err
 }
@@ -26,7 +26,11 @@ func (d *Detector) Detect() (bool, error) {
 func (d *Detector) isROTed(fileContent []byte) bool {
 	result := make([]byte, len(fileContent))
 
+	fmt.Print("keys used to shift the letter:")
+
 	for i := 1; i < methods.AsciiLettersLength; i++ {
+		fmt.Printf("%d, ", i)
+
 		for index, val := range fileContent {
 			result[index] = Rot13(val, i)
 		}
@@ -37,6 +41,8 @@ func (d *Detector) isROTed(fileContent []byte) bool {
 			return true
 		}
 	}
+
+	fmt.Println()
 
 	return false
 }
