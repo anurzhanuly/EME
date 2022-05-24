@@ -1,6 +1,7 @@
 package xor
 
 import (
+	"ABA/EME/app/methods"
 	headerUtil "ABA/EME/app/methods/utils/file"
 	"os"
 	"testing"
@@ -14,21 +15,22 @@ func TestDetect(t *testing.T) {
 		Filepath: filepathOrigin,
 	}
 
-	header, _ := headerUtil.GetFileHeader(filepathOrigin)
-	t.Log("Original file is:", header)
-
-	for index, char := range header {
-		header[index] = char ^ key
+	fileContent, err := headerUtil.GetFileContent(filepathOrigin)
+	if err != nil {
+		t.Error(err)
 	}
 
-	newHeader := make([]byte, 2)
-	newHeader[0] = header[0]
-	newHeader[1] = header[1]
+	t.Log("Original file is:", fileContent[:10])
 
-	t.Log("Modified file is:", header)
+	for index, char := range fileContent {
+		fileContent[index] = char ^ key
+	}
+
+	newHeader := make([]byte, methods.TrimLengthForExeHeader)
+	newHeader = append(newHeader, fileContent...)
 
 	newFile, _ := os.Create(newFilepath)
-	_, err := newFile.Write(newHeader)
+	_, err = newFile.Write(newHeader)
 	if err != nil {
 		return
 	}
