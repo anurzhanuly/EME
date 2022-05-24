@@ -52,3 +52,32 @@ func TestDetect(t *testing.T) {
 
 	detector.Present()
 }
+
+func TestFileForXOR(t *testing.T) {
+	filepathOrigin := "/home/nurzhanuly/Documents/Personal/mona/AITU/diploma/petest/crackme.exe"
+	newFilepath := "/home/nurzhanuly/Documents/Personal/mona/AITU/diploma/petest/xor/xorTestFile.exe"
+	key := byte('L')
+
+	fileContent, err := headerUtil.GetFileContent(filepathOrigin)
+	if err != nil {
+		t.Error(err)
+	}
+
+	for index, char := range fileContent {
+		fileContent[index] = char ^ key
+	}
+
+	newHeader := fileContent[:methods.TrimLengthForExeHeader]
+	newHeader = append(newHeader, fileContent...)
+
+	newFile, _ := os.Create(newFilepath)
+	_, err = newFile.Write(newHeader)
+	if err != nil {
+		return
+	}
+
+	err = newFile.Close()
+	if err != nil {
+		return
+	}
+}
