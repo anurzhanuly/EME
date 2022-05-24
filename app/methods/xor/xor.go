@@ -52,5 +52,7 @@ func (d *Detector) isXORed(fileContents []byte) bool {
 }
 
 func (d Detector) Present() {
-
+	fmt.Println("XOR - Encryption type was found")
+	fmt.Printf("%s - is the key that was used", d.ResultKey)
+	fmt.Println()
 }
